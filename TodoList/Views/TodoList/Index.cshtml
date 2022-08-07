@@ -1,0 +1,72 @@
+﻿@model ListTodoListViewModel
+
+<div class="row">
+    <div class="col text-center">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Completo?</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var todoList in Model.TodoList)
+                {
+                    <tr>
+                        <th scope="row">@todoList.Id</th>
+                        <td>@todoList.Title</td>
+                        <td>@todoList.Date.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (todoList.IsCompleted)
+                            {
+                                <i class="fa-solid fa-clipboard-check text-success"></i>
+              
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-square-xmark text-danger"></i>
+                            }
+                        </td>
+                        <td>
+                            <a asp-controller="TodoList"
+                           asp-action="ToComplete"
+                           asp-route-id="@todoList.Id"
+                           onclick="return confirm('Tem certeza que deseja concluir essa tarefa?')"
+                           class="btn btn-sm btn-success @(todoList.IsCompleted ? "disabled" : "")">
+                                <i class="fa-solid fa-floppy-disk"></i> 
+                            </a>
+                            <a asp-controller="TodoList"
+                           asp-action="Edit"
+                           asp-route-id="@todoList.Id"
+                           class="btn btn-sm btn-warning @(todoList.IsCompleted ? "disabled" : "")">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a asp-controller="TodoList"
+                           asp-action="Delete"
+                           asp-route-id="@todoList.Id"
+                           onclick="return confirm('Tem certeza que deseja excluir essa tarefa?')"
+                           class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <a asp-controller="TodoList" asp-action="Create" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nova Tarefa</a>
+    </div>
+</div>

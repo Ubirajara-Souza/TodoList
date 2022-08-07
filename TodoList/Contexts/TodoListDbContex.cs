@@ -10,7 +10,7 @@ namespace TodoList.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseNpgsql("Host=localhost;Port=5432;Pooling=true;Database=todo-list;User Id=bira;Password=avila160197;");
+            builder.UseNpgsql("Host=localhost;Port=5432;Pooling=true;Database=todo-list;User Id=--;Password=--");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
